@@ -1,0 +1,6 @@
+/.vagrant
+/certs
+/settings.yml
+/*.log
+/*.sublime-project
+/*.sublime-workspace

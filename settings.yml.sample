@@ -1,0 +1,44 @@
+vagrant:
+  box: "ubuntu/focal64" # Capima supports xenial64, bionic64 and focal64 only
+  disksize: "50GB"
+  timeout: 600 # Workaround for ubuntu/focal64 booting up issue
+  sync:
+    enabled: false # Sorry, I didn't support this feature,
+    path: "." # Don't ask me for support this, thank you.
+  ssh:
+    username: "capima" # Uncommenting me to ssh into vagrant with different username
+  provision:
+    mode: "verbose" # Change to simple if you don't want to see a lot of output
+vbox:
+  name: "capima-box" # Set name for your vagrant box
+  hostname: "capima.box" # Hostname on your guest OS (recommend to set as FQDN)
+  res_auto: true # Don't touch this unless you know what you're doing
+  # If you are using Windows folks or don't want to use res_auto, uncomment two lines below
+  #vcpu: 2
+  #ram: 2048
+  # To troubleshooting why your virtualbox cannot start, uncomment the line below
+  #debug: true
+network:
+  private:
+    enabled: false # If you want to use private ip, set this to true
+    ip_addr: "23.9.19.93" # Your private ip address
+  public:
+    enabled: false # If you want to use public ip, set this to true
+    ip_addr: "10.0.1.93" # Your public ip address (Your LAN IP, must be static and never conflict)
+    bridge: "en0: Ethernet" # Your network card name, check the name by: vboxmanage list bridgedifs
+  ports: # There is a loop over this section to setup forwarded port for your Vagrant box
+  # NOTE: if your private -> enabled set to FALSE, then you're going to use NAT also mean you can access
+  # http://localhost:<port> directly from your browser, which pretty cool in some scenarios
+  # you can't forwarding port lesser or equals 1024, most of operating system restricted this.
+  # if you need to bind host's port to something <= 1024, you must use private network
+    - guest: 80 # Your VM port you want to forwarding
+      host: 80 # Your machine port which will be bind to (must be free, so obvious)
+    - guest: 3306
+      host: 3307
+    # Always keep "-" in the beginning of any new "guest" you add in the future below this line
+capima:
+  sudo: false # Allow Capima use can run sudo commands without entering passwd
+  php: "7.4" # Set default PHP-CLI version, e.g: 5.4, 5.5, 5.6, 7.0, 7.1..etc
+shell: # WIP - not working, don't know why, tty and set -e I guess (!?), wont fix obviously
+  ohmybash: false # Bash framework for geeks
+  ohmyzsh: false # Zsh framework for advanced geeks
