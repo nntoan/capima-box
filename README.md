@@ -15,7 +15,7 @@ You will be able to setup as many domain as you want. And a better, faster stack
 ```bash
 $ cp settings.yml.sample settings.yml
 ```
-4. Execute the following commands to setup the virtual machine: (check [this](https://github.com/nntoan/vagrant-capima#connecting-to-capima) before execute commands below)
+4. Execute the following commands to setup the virtual machine:
 ```bash
 $ vagrant up
 $ vagrant ssh
