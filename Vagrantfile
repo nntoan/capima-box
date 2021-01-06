@@ -61,11 +61,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       if settings['vbox']['res_auto'] == true
         host = RbConfig::CONFIG['host_os']
         if host =~ /darwin/
-          cpus = `sysctl -n hw.ncpu`.to_i / 2
-          mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+          cpus = `sysctl -n hw.ncpu`.to_i / 4
+          mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 6
         elsif host =~ /linux/
-          cpus = `nproc`.to_i
-          mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+          cpus = `nproc`.to_i / 4
+          mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 6
         else
           cpus = settings['vbox']['vcpu'] ||= 2
           mem = settings['vbox']['ram'] ||= 1536
